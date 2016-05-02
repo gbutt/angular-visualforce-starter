@@ -1,0 +1,10 @@
+# vscode
+.vscode
+
+# node
+node_modules
+
+# app
+build
+coverage
+

@@ -1,0 +1,5 @@
+<ul>
+    <li ng-repeat="case in $ctrl.cases" ng-class="{ selected: $ctrl.isSelected(case) }" ng-click="$ctrl.onSelect(case)">
+        <span class="badge">{{case.id}}</span> {{case.name}}
+    </li>
+</ul>

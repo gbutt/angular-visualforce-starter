@@ -1,0 +1,6 @@
+<h3>Search Results</h3>
+<ul>
+    <li ng-repeat="case in $ctrl.cases" ng-click="$ctrl.onSelect(case)">
+        <span class="badge">{{case.id}}</span> {{case.name}}
+    </li>
+</ul>
