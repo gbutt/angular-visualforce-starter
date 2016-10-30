@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES3",
+    "module": "commonjs"
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "coverage",
+    "dist",
+    "gulp",
+    "test"
+  ]
+}

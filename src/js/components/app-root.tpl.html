@@ -1,0 +1,23 @@
+<!-- Top Navigation Bar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed navbar-left" ng-click="$ctrl.toggleNavigation()">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand">{{ $ctrl.viewTitle }}</span>
+    </div>
+    <div class="collapse navbar-collapse" uib-collapse="$ctrl.navCollapsed">
+      <ul class="nav navbar-nav">
+        <li ng-repeat="nav in $ctrl.topNavs" ng-class="{active: $ctrl.isActive(nav.title)}">
+          <a ui-sref="{{ nav.name }}" ng-click="$ctrl.toggleNavigation(true)">{{ nav.title }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- route content -->
+<ui-view></ui-view>

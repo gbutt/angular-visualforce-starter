@@ -1,27 +1,52 @@
 <!doctype html>
-<html class="no-js">
+<html>
+<!--
+This page serves as a template for a visualforce page. It is not included in the packaged static resource.
+
+NOTE: Assets used on this page are first compiled by webpack into bundles. Webpack outputs to build directory.
+This page is designd to be served from the build directory.
+You can run webpack with the command `npm build` or `npm start` if you also want to start a web server -->
 
 <head>
-    <!--<base href="/">-->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title ng-bind="pageTitle"></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+  <base href="/">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></link>
+  <!-- compiled from styles/index.js -->
+  <link rel="stylesheet" href="styles.css"></link>
 </head>
 
 <body>
-
-    <div class="container">
-        <app>Loading...</app>
-    </div>
-    <hr />
-    <script src="vendor.js"></script>
-    <script src="templates.js"></script>
-    <script src="app.js"></script>
-    <script>
-        angular.bootstrap(document, ['app']);
-    </script>
+  <!-- user notification messages, aka toasts -->
+  <toast></toast>
+  <!-- core app -->
+  <app-root />
+  <hr />
+  <!-- scripts -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+  <!-- compiled from app/vendor.js -->
+  <script src="vendor.js"></script>
+  <script>
+    window.appContext = {
+      debugEnabled: true,
+    };
+    window.vfrMockConfig = {
+      lotsOfErrors: false,
+      latencyinMillis: 500
+    };
+  </script>
+  <!-- compiled from app/index.js -->
+  <script src="app.js"></script>
+  <!-- local testing only - these will stub out VFR services and return mock data -->
+  <!-- compiled from app/mocks.js -->
+  <script src="mocks.js"></script>
+  <script>
+    angular.bootstrap(document, ['app'], {
+      strictDi: true
+    });
+  </script>
 </body>
 
 </html>

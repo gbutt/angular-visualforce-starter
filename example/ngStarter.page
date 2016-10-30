@@ -1,0 +1,79 @@
+<apex:page controller="ngStarterController" applyHtmlTag="false" docType="html-5.0" showHeader="false" sidebar="false" standardStylesheets="false" >
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+</head>
+
+<body>
+  <!-- user notification messages, aka toasts -->
+  <toast></toast>
+  <!-- core app -->
+  <app-root />
+  <hr />
+  <!-- scripts -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+
+  <script>
+    //Visualforce.remoting.Manager.invokeAction( '{!$RemoteAction.ngStarterController.myRemoteAction}', function(result) { console.log(result); });
+    window.j$ = jQuery.noConflict();
+
+    window.appContext = {
+      debugEnabled: {! debugEnabled },
+    };
+
+    if (window.appContext.debugEnabled) {
+      loadSourcesLocalhost().fail(loadSourcesSfdc);
+    } else {
+      loadSourcesSfdc();
+    }
+
+    function loadSourcesLocalhost() {
+      return j$.ajax({url: '//localhost:3000/vendor.js', dataType: 'script', timeout: 200})
+        .done(function () {
+          console.log("using localhost");
+          var src = {
+            styles: "//localhost:3000/styles.css",
+            app: "//localhost:3000/app.js"
+          };
+          return loadSource(src);
+        });
+    }
+
+    function loadSourcesSfdc() {
+      console.log("using salesforce");
+      var src = {
+        app: "{! URLFOR( $Resource.ngStarter, 'js/app.js' ) }",
+        styles: "{! URLFOR( $Resource.ngStarter, 'styles/css/styles.css' ) }"
+      };
+      return j$.getScript("{! URLFOR( $Resource.ngStarter, 'js/vendor.js' ) }")
+       .then(function() {
+        return loadSource(src);
+       });
+    }
+
+    function loadSource(src) {
+      if (src.styles) {
+        j$('head').append(createStylesheet(src.styles));
+      }
+      return j$.getScript(src.app)
+        .then(function(){
+          angular.bootstrap(document, ['app']);
+        });
+    }
+
+    function createStylesheet(src) {
+      var style = document.createElement("link");
+      style.rel = "stylesheet";
+      style.href = src;
+      return style;
+    }
+  </script>
+</body>
+
+</html>
+</apex:page>

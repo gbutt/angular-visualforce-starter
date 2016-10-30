@@ -1,10 +1,16 @@
+.DS_Store
+
 # vscode
 .vscode
 
 # node
 node_modules
+npm-debug.log
+
+*.generated.js
 
 # app
 build
 coverage
-
+dist
+typings

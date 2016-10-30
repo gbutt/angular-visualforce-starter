@@ -1,26 +1,57 @@
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    var config = require('../config');
-    var path = require('path');
-    var gulp = require('gulp');
-    var Server = require('karma').Server;
+  var config = require('../config');
+  var path = require('path');
+  var gulp = require('gulp');
+  var util = require('gulp-util');
+  var Server = require('karma').Server;
 
-    gulp.task('karma', ['views'], function(cb) {
+  gulp.task('karma', function (cb) {
 
-        new Server({
-            configFile: path.resolve(global.appRoot, config.test.karma),
-            singleRun: true
-        }, cb).start();
+    var karmaConfig = {
+      configFile: path.resolve(global.appRoot, config.test.karma),
+      singleRun: true,
+      reporters: ['dots', 'coverage'],
+      coverageReporter: {
+        dir: 'coverage/',
+        reporters: [{
+          type: 'text-summary'
+        }, {
+          type: 'html'
+        }],
+      },
+    };
 
-    });
+    // // we enforce code coverage on deployments
+    // if (!util.env.nocheck) {
+    //   karmaConfig.coverageReporter.check = {
+    //     global: {
+    //       statements: 95,
+    //       branches: 90,
+    //       functions: 95,
+    //       lines: 95
+    //     },
+    //     each: {
+    //       statements: 75,
+    //       branches: 50,
+    //       functions: 75,
+    //       lines: 75
+    //     }
+    //   };
+    // }
 
-    gulp.task('tdd', ['views'], function(cb) {
+    new Server(karmaConfig, cb).start();
 
-        new Server({
-            configFile: path.resolve(global.appRoot, config.test.karma),
-            singleRun: false
-        }, cb).start();
+  });
 
-    });
+  gulp.task('tdd', function (cb) {
+
+    new Server({
+      configFile: path.resolve(global.appRoot, config.test.karma),
+      singleRun: false,
+      reporters: ['dots'],
+    }, cb).start();
+
+  });
 })();
