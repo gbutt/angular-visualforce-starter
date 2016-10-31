@@ -1,0 +1,29 @@
+<h1>Visualforce Remote Action Demo</h1>
+<p>
+  Click on a button to perform a visualforce remote action.
+</p>
+<p>
+  Actions are defined in config/vfrActions.constant.js. This allows us to define and
+  configure all remote actions in one place. Each action has a key, an action name
+  and options. The key is used to reference an action, the action name and options
+  are passed to the invokeAction function.
+  <ul>
+    <li>The key does not need to match the action name, but it is helpful to be consistent.</li>
+    <li>Action name needs to be prefixed with a controller class. This can be any controller
+      referenced on your visualforce page.</li>
+    <li> We provide some default options used by all actions, but these can be overridden
+      on a per action basis.</li>
+  </ul> For more information on Visualforce Remote Actions see <a href="https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_js_remoting.htm">JavaScript Remoting for Apex Controllers</a>.
+</p>
+<p>
+  Since we're not hosting this page in Salesforce we need to mock out the actions.
+  Actions are mocked in mocks/mockedVfrActions.js. vfrMock can be configured for
+  latency and error using the vfrMockConfig object in index.html. This allows you
+  to test how your program functions when things go badly.
+</p>
+<button class="btn btn-default" ng-click="$ctrl.actionWithArgs()">Action with args</button>
+<button class="btn btn-default" ng-click="$ctrl.actionWithoutArgs()">Action without args</button>
+<div class="form-group" ng-show="$ctrl.result">
+  <label>Results:</label>
+  <pre class="form-control-static">{{ $ctrl.result | json }}</pre>
+</div>

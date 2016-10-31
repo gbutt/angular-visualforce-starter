@@ -1,0 +1,31 @@
+/* tab styles for search page */
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+.nav-tabs:first-child {
+  padding-left: 20px;
+}
+
+
+/* move topbar navigation hamburger menu toggle to the left */
+
+.navbar-toggle {
+  float: left;
+  margin-left: 15px;
+  margin-right: auto;
+}
+
+
+/* pad top of body for fixed topbar navigation */
+
+body {
+  padding-top: 70px;
+}
+
+@media screen and (min-width: 768px) {
+  .navbar-brand {
+    display: none;
+  }
+}
