@@ -1,1 +1,1 @@
-require('./vfrMock');
+require('./mockedVfrActions');

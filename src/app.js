@@ -17,6 +17,7 @@
     'ngToast',
     'ui.bootstrap',
     'ui.router',
+    'vfrAction',
   ];
   var localModules = ['templates'];
 
@@ -25,7 +26,6 @@
 
   require('./js/config');
   require('./js/components');
-  require('./js/factories');
   require('./js/services');
 
 })();

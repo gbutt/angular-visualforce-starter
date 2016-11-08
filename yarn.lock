@@ -63,6 +63,12 @@ angular-ui-router@^0.3.1:
   dependencies:
     angular "^1.0.8"
 
+angular-vf-remote-actions:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/angular-vf-remote-actions/-/angular-vf-remote-actions-1.0.1.tgz#8d5e647425609f604223dac741f1d559e8801a23"
+  dependencies:
+    angular ">=1.2.15 <1.6"
+
 angular@^1.0.8, angular@^1.5.8, "angular@>=1.2.15 <1.6":
   version "1.5.8"
   resolved "https://registry.yarnpkg.com/angular/-/angular-1.5.8.tgz#925a5392b8c212d09572dc446db7e01264e094cb"

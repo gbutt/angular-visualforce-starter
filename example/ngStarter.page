@@ -19,14 +19,23 @@
   <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
 
   <script>
+
+    function bootstrapNg() {
+      // use this to disable debug logging
+      angular.module('app').config(['$logProvider', '$compileProvider', function ($logProvider, $compileProvider) {
+        $logProvider.debugEnabled({! debugEnabled });
+        $compileProvider.debugInfoEnabled(false);
+      }]);
+      angular.module('app').config(['VfrActionProvider', function (VfrActionProvider) {
+        // VfrActionProvider.defaultNamespace('gbutt'); // developer orgs only
+      }]);
+      angular.bootstrap(document, ['app'], {strictDi: true});
+    }
+
     //Visualforce.remoting.Manager.invokeAction( '{!$RemoteAction.ngStarterController.myRemoteAction}', function(result) { console.log(result); });
     window.j$ = jQuery.noConflict();
 
-    window.appContext = {
-      debugEnabled: {! debugEnabled },
-    };
-
-    if (window.appContext.debugEnabled) {
+    if ({! debugEnabled }) {
       loadSourcesLocalhost().fail(loadSourcesSfdc);
     } else {
       loadSourcesSfdc();
@@ -62,7 +71,7 @@
       }
       return j$.getScript(src.app)
         .then(function(){
-          angular.bootstrap(document, ['app']);
+          bootstrapNg();
         });
     }
 

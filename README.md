@@ -5,7 +5,9 @@ This is a starter project for getting up and running quickly with Visualforce an
 + Local development server - `npm start` - you can develop your changes quickly without having to push them to Salesforce every time.
 + Bundle and deploy your code to Salesforce as a static resouce - `npm run deploy`
 + Code bundling and minification provided by Webpack.
-+ My own tiny framework for invoking Visualforce Remote Actions.
++ Visualforce Remote Actions using [angular-vf-remote-actions](https://www.npmjs.com/package/angular-vf-remote-actions).
+
+Everything else is just gravy, use it if you like.
 
 Prerequisites
 -----
@@ -14,7 +16,6 @@ Prerequisites
 
 Getting Started
 ------
-I am going to assume you are familiar with how to use the commandline ;)
 + install dependencies - `npm install`
 + start local development server - `npm start`
 + give it a few seconds - then open your browser to [https://localhost:3000](https://localhost:3000)
@@ -25,7 +26,7 @@ FAQ
 ---
 
 <b>How do I get the starter running in Salesforce?</b>
-+ If you are deploying to a developer org you might need to specify the package namespace. Do this in [vfrActions.constant.js](src/js/config/vfrActions.constant.js).
++ If you are deploying to a developer org you might need to specify the package namespace. Do this in [vfrAction.config.js](src/js/config/vfrAction.config.js), or in the [example visualforce page](example/ngStarter.page).
 + First you will need to deploy this starter as a static resource - `npm run deploy`
   + This command will prompt you for your environment - choose `test` for a sandbox and `login` for a developer org.
   + Provide your credentials and wait for the deploy to finish. If the deploy times out you can check the status on the Deployment Status page in Salesforce.
@@ -34,17 +35,24 @@ FAQ
 
 <b>How can I add a new Visualforce Remote Action?</b>
 + Create a new @RemoteAction method in the [Visualforce controller](example/ngStarterController.cls)
-+ Create an entry for this action in [vfrActions.constant.js](src/js/config/vfrActions.constant.js)
++ Optional - Create an entry for this action in [vfrAction.config.js](src/js/config/vfrAction.config.js). Use this to override default settings.
 + Wire up your action in the [VFR Action Demo page](src/js/components/vfr-action-demo.comp.js)
 + Optional - Create a mock action handler in [mockedVfrActions.js](src/js/mocks/mockedVfrActions.js) to support local testing
 
 <b>Mocks are great, but can I execute real Remote Actions while developing?</b>
 + Yes - but you will need to load your scripts from localhost
-+ start the dev server - `npm start`
-+ open [https://localhost:3000](https://localhost:3000) and accept the security exception
-+ now you should be able to load localhost scripts in your visualforce page - e.g. `<script src="//localhost:3000/app.js"></script>`
-+ do not load mocks.js in your visualforce page!
-+ see the [ngStarter.page](example/ngStarter.page) for a working example. This page attempts to load scripts from localhost before falling back to loading scripts from Salesforce.
++ Start the dev server - `npm start`
++ Open [https://localhost:3000](https://localhost:3000) and accept the security exception
++ Now you should be able to load localhost scripts in your visualforce page - e.g. `<script src="//localhost:3000/app.js"></script>`
++ Do not load mocks.js in your visualforce page. It will intercept all calls to the Apex Controller.
++ See the [ngStarter.page](example/ngStarter.page) for a working example. This page attempts to load scripts from localhost before falling back to loading scripts from Salesforce.
+
+<b>How do I add a unit test?</b>
++ Unit tests are executed using the command `npm test`.
++ To add a unit test, create a new file in the src folder called `<file-under-test>.spec.js`. For convenience, place it next to the file under test.
++ Tests are executed using Karma and PhantomJS by default, but you can change this to use a real browser like [Chrome](https://www.npmjs.com/package/karma-chrome-launcher) if you want.
++ Code Coverage reports are output to the coverage folder.
++ For more info on writing unit tests you can read [this doc](docs/UNIT_TESTS.md).
 
 Would you like to know more?
 ---

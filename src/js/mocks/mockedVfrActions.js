@@ -1,15 +1,29 @@
-(function () {
+(function (global) {
   'use strict';
+
+  require('angular-vf-remote-actions/dist/vfrMock');
+
+  global.vfrMockConfig = {
+    lotsOfErrors: false,
+    latencyinMillis: 500,
+    invokeActionHandler: function (args) {
+      switch (args.method) {
+        case 'myRemoteAction':
+          args.handleSuccess(myRemoteAction());
+          break;
+        case 'anotherRemoteAction':
+          args.handleSuccess(anotherRemoteAction(args.parameters));
+          break;
+        default:
+          args.handleUndefined();
+      }
+    }
+  };
 
   var mockData = {
     myRemoteAction: require('./data/myRemoteAction.json'),
     anotherRemoteAction: require('./data/anotherRemoteAction.json')
   }
-
-  var mockedActions = {
-    'ngStarterController.myRemoteAction': myRemoteAction,
-    'ngStarterController.anotherRemoteAction': anotherRemoteAction
-  };
 
   function myRemoteAction() {
     return angular.copy(mockData.myRemoteAction);
@@ -21,6 +35,4 @@
     return result;
   }
 
-
-  module.exports = mockedActions;
-})();
+})(window);

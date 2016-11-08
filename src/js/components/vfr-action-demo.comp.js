@@ -8,18 +8,14 @@
     });
 
   /* @NgInject */
-  function VfrActionDemoComponent(vfrActionFactory, appSettings, $log, userNotificationService, vfrActions) {
+  function VfrActionDemoComponent(VfrAction, $log, userNotificationService) {
     var ctrl = this;
 
-    if (!appSettings.debugEnabled) {
-      $log.info('Turn on debug logging to see vfr actions in the console');
-    }
-
-    var myRemoteActionVfr = vfrActionFactory.build(vfrActions.myRemoteAction);
-    var anotherRemoteActionVfr = vfrActionFactory.build(vfrActions.anotherRemoteAction);
+    var myRemoteActionVfr = new VfrAction('myRemoteAction');
+    var anotherRemoteActionVfr = new VfrAction('anotherRemoteAction');
 
     ctrl.actionWithoutArgs = function () {
-      myRemoteActionVfr()
+      myRemoteActionVfr.invoke()
         .then(printResult)
         .catch(handleError);
     };
@@ -32,7 +28,7 @@
       var account = {
         Name: 'The Big Inc.'
       };
-      anotherRemoteActionVfr(account, person)
+      anotherRemoteActionVfr.invoke(account, person)
         .then(printResult)
         .catch(handleError);
     };

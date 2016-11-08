@@ -4,7 +4,7 @@
   var config = require('../config');
   var gulp = require('gulp');
 
-  gulp.task('watch', ['watch:all', 'webpack-dev-server']);
+  gulp.task('watch', ['webpack-dev-server']);
 
   gulp.task('watch:all', ['views', 'assets'], function () {
 

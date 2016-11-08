@@ -28,24 +28,18 @@ You can run webpack with the command `npm build` or `npm start` if you also want
   <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
   <!-- compiled from app/vendor.js -->
   <script src="vendor.js"></script>
-  <script>
-    window.appContext = {
-      debugEnabled: true,
-    };
-    window.vfrMockConfig = {
-      lotsOfErrors: false,
-      latencyinMillis: 500
-    };
-  </script>
   <!-- compiled from app/index.js -->
   <script src="app.js"></script>
   <!-- local testing only - these will stub out VFR services and return mock data -->
   <!-- compiled from app/mocks.js -->
   <script src="mocks.js"></script>
-  <script>
-    angular.bootstrap(document, ['app'], {
-      strictDi: true
-    });
+  <script type="text/javascript">
+    // use this to disable debug logging
+    angular.module('app').config(['$logProvider', '$compileProvider', function ($logProvider, $compileProvider) {
+      $logProvider.debugEnabled(true);
+      $compileProvider.debugInfoEnabled(false);
+    }]);
+    angular.bootstrap(document, ['app'], {strictDi: true});
   </script>
 </body>
 

@@ -51,7 +51,7 @@
     });
   });
 
-  gulp.task("webpack-dev-server", function (callback) {
+  gulp.task("webpack-dev-server", ["watch:all"], function (callback) {
     // modify some webpack config options
     var myConfig = Object.create(webpackConfig);
     myConfig.devtool = "eval";
